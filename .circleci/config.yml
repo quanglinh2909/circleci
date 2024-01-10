@@ -38,7 +38,4 @@ jobs:
 workflows:
   build-workflow:
     jobs:
-      - docker-build
-      - deploy:
-          requires:
-            - "docker-build"
+      - deploy
