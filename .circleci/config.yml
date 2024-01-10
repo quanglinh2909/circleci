@@ -9,12 +9,12 @@ jobs:
     executor: docker/docker
     steps:
        - run: ssh -p  5999 -v test@125.212.250.1 './deloy_linh.sh'
-workflows:
-  commit:
-    jobs:
-      - deloy:
-          filters:
-            branches:
-              only:
-                - main
+# workflows:
+#   commit:
+#     jobs:
+#       - deloy:
+#           filters:
+#             branches:
+#               only:
+#                 - main
     
