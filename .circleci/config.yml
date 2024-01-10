@@ -30,9 +30,9 @@ jobs:
       - run: |
           SERVER_HOST="test@125.212.250.1"
           WORK_DIR='/var/apps/react-app'
-          ssh $SERVER_HOST mkdir -p /var/apps/react-app
+          ssh -p 5999 $SERVER_HOST mkdir -p /var/apps/react-app
           scp docker-compose.yml react-app.tgz $SERVER_HOST:$WORK_DIR
-          ssh $SERVER_HOST "docker ps && docker load < $WORK_DIR/react-app.tgz && docker compose -f $WORK_DIR/docker-compose.yml up -d"
+          ssh -p 5999 $SERVER_HOST "docker ps && docker load < $WORK_DIR/react-app.tgz && docker compose -f $WORK_DIR/docker-compose.yml up -d"
 
 
 workflows:
