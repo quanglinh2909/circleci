@@ -28,7 +28,7 @@ jobs:
           at: .
       - run: ls -a
       - run: |
-          SERVER_HOST="$test@$125.212.250.1"
+          SERVER_HOST="test@125.212.250.1"
           WORK_DIR='/var/apps/react-app'
           ssh $SERVER_HOST mkdir -p /var/apps/react-app
           scp docker-compose.yml react-app.tgz $SERVER_HOST:$WORK_DIR
