@@ -1,41 +1,22 @@
-version: 2.1
-
+version: "2.1"
 orbs:
-  node: circleci/node@5.2.0
-  docker: circleci/docker@1.4.0
-
+  docker: circleci/docker@2.4.0
 jobs:
   build-and-push:
-    environment:
-      DOCKER_IMAGE: nhtua/react-docker
-      DOCKER_TAG: latest
     executor: docker/docker
     steps:
       - setup_remote_docker
       - checkout
       - docker/check
       - docker/build:
-          image: $DOCKER_IMAGE
-          tag: $DOCKER_TAG
+          image: my_repo/orb-test
       - docker/push:
           digest-path: /tmp/digest.txt
-          image: $DOCKER_IMAGE
-          tag: $DOCKER_TAG
+          image: my_repo/orb-test
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
-  deloy:
-    executor: docker/docker
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "33:b5:cb:37:df:40:3e:a4:35:bd:62:92:dd:f1:9d:a9"
-      - run: ssh -p  5999  -o StrictHostKeyChecking=no -v linh@125.212.250.1 './deloy_linh.sh'
 workflows:
   commit:
     jobs:
-      - build-and-push:
-          filters:
-            branches:
-              only:
-                - main
+      - build-and-push
