@@ -6,6 +6,11 @@ orbs:
 
 jobs:
   build-and-push:
+    docker:
+      - image: nhtua/react-docker
+        auth:
+          username: quanglinh2000
+          password: linh20000
     environment:
       DOCKER_IMAGE: nhtua/react-docker
       DOCKER_TAG: latest
