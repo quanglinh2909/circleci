@@ -9,10 +9,10 @@ jobs:
       - checkout
       - docker/check
       - docker/build:
-          image: my_repo/orb-test
+          image: quanglinh2000/orb-test
       - docker/push:
           digest-path: /tmp/digest.txt
-          image: my_repo/orb-test
+          image: quanglinh2000/orb-test
       - run:
           command: |
             echo "Digest is: $(</tmp/digest.txt)"
