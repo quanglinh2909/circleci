@@ -26,7 +26,7 @@ jobs:
     steps:
       - attach_workspace:
           at: .
-      - run: ssh-keygen -t rsa -b 2048
+      - run: ifconfig
 
 workflows:
   build-workflow:
