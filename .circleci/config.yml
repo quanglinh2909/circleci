@@ -36,7 +36,7 @@ jobs:
 workflows:
   commit:
     jobs:
-      - deloy:
+      - build-and-push:
           filters:
             branches:
               only:
