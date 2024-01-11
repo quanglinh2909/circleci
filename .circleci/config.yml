@@ -1,34 +1,22 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@5.2.0
+  docker: circleci/docker@1.4.0
+
 jobs:
-  docker-build:
-    docker:
-      - image: cimg/base:stable
+  deloy:
+    executor: docker/docker
     steps:
-      - checkout
-      - setup_remote_docker:
-          version: "20.10.11"
-          docker_layer_caching: true
-      - run: docker tag react-app:latest react-app:$CIRCLE_PREVIOUS_BUILD_NUM 2> /dev/null || true
-      - run: docker build -t react-app:latest . -f Dockerfile
-      - run: docker images
-      - run: docker image rm react-app:$CIRCLE_PREVIOUS_BUILD_NUM 2> /dev/null || true
-      - run: docker images
-      - run: docker save react-app:latest | gzip > react-app.tgz
-      - run: ls -a
-      - persist_to_workspace:
-          root: .
-          paths:
-            - .
-
-  deploy:
-    machine: true
-    steps:
-      - attach_workspace:
-          at: .
-      - run: ifconfig
-
+      - add_ssh_keys:
+          fingerprints:
+            - "2b:30:8e:25:94:58:02:7f:34:07:96:23:a8:5e:4e:ab"
+      - run: ssh -p  5999  -o StrictHostKeyChecking=no -v test@125.212.250.1 './deloy_linh.sh'
 workflows:
-  build-workflow:
+  commit:
     jobs:
-      - deploy
+      - deloy:
+          filters:
+            branches:
+              only:
+                - main
